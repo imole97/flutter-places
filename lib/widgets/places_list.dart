@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_places/models/places.dart';
+import 'package:flutter_places/screens/places_detail.dart';
 
 class PlacesList extends StatelessWidget {
   const PlacesList({super.key, required this.places});
@@ -9,11 +10,14 @@ class PlacesList extends StatelessWidget {
   Widget build(BuildContext context) {
     if (places.isEmpty) {
       return Center(
-          child: Text('No places available',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge!
-                  .copyWith(color: Theme.of(context).colorScheme.onSurface)));
+        child: Text(
+          'No places available',
+          style: Theme.of(context)
+              .textTheme
+              .bodyLarge!
+              .copyWith(color: Theme.of(context).colorScheme.onSurface),
+        ),
+      );
     }
 
     return ListView.builder(
@@ -26,6 +30,13 @@ class PlacesList extends StatelessWidget {
               .titleMedium!
               .copyWith(color: Theme.of(context).colorScheme.onSurface),
         ),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (ctx) => PlacesDetail(place: places[index]),
+            ),
+          );
+        },
       ),
     );
   }
